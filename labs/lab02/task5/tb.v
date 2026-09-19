@@ -45,7 +45,7 @@ module tb;
     if ({result} !== {exp_result}) begin
       $display("FAIL at time %0t: a=%b b=%b op=%b got result=%b expected result=%b",
                 $time, a, b, op, result, exp_result);
-      error = error + 1;
+      error = error  + 1;
     end
   end
 
