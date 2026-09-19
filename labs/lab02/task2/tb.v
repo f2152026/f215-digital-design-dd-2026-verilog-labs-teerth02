@@ -3,9 +3,18 @@
 
 module tb;
 
-  // TODO: declare the inputs and outputs
+localparam WIDTH = 8;
+localparam DEPTH = 8;
+  reg [$clog2(DEPTH-1):0] t_sel;
+  wire [WIDTH-1:0] t_dout;
 
-  // TODO: instantiate DUT here
+
+lut # (.WIDTH(WIDTH), .DEPTH(DEPTH)) DUT (
+  .sel  (t_sel),
+  .dout (t_dout)
+);
+
+
 
   // Waveform dump configuration (DO NOT CHANGE)
   string vcd_file;
@@ -15,13 +24,21 @@ module tb;
       $dumpvars(0, DUT);
     end
   end
+  integer expected;
 
   initial begin
-    // TODO: apply different input combinations
+    t_sel=0;
+    expected=0;
+    for(int i=1;i<DEPTH;i++)begin
+      #5 t_sel=i;
+      expected=i*i;
+
+    end
+
 
   end
 
   initial
-    $monitor($time, " I0=%b I1=%b S=%b | Y=%b", t_i0, t_i1, t_s, t_y); // change as required
+    $monitor($time, " SEL=%b DOUT=%d EXP=%3d", t_sel, t_dout,expected); // change as required
 
 endmodule
