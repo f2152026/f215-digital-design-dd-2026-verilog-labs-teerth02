@@ -21,9 +21,14 @@ module tb;
     end
   end
   initial begin
-    A=2; B=3;
-    #5 A=3; B=3;
-    #5 A=3; B=2;
+    for(int i=0;i<3;i++)begin
+        for(int j=0;j<3;j++)begin
+            A=i; B=j;
+            #5;
+
+        end
+    end
+
   end
 
 assign eq = (A == B);
